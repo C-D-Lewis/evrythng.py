@@ -26,7 +26,7 @@ For example, to CRUD a Thng:
 ```python
 thngs = operator.thng().read()
 
-print('Read ' + str(len(thngs)) + ' Thngs)
+print('Read ' + str(len(thngs)) + ' Thngs')
 ```
 
 ```python
@@ -38,8 +38,12 @@ print('Created Thng ' + created_thng['id'])
 
 ```python
 update_thng = operator.thng(created_thng['id']).update({ 'tags': [] })
+
+print('Updated Thng ' + update_thng['id'])
 ```
 
 ```python
 operator.thng(updated_thng['id']).delete()
+
+print('Deleted Thng ' + update_thng['id'])
 ```
