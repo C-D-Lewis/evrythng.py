@@ -1,5 +1,5 @@
 # evrythng.py
-Concept Python SDK for the EVRYTHNG API. Inspired by the chainable aspects of [`evrythng.js`](https://github.com/evrythng/evrythng.js/).
+Concept unofficial Python wrapper for the EVRYTHNG API. Inspired by the chainable aspects of [`evrythng.js`](https://github.com/evrythng/evrythng.js/).
 
 
 ## Import
