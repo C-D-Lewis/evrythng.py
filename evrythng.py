@@ -101,7 +101,7 @@ class ThngResource(CRUDResource):
         return _evrythng_request(self, 'post', { 'thngId': self.id })
 
 
-def _evrythng_request(resource, method, body={}):
+def _evrythng_request(resource, method, body=None):
     headers = { 'Authorization': resource.parent_scope.api_key }
     full_url = resource.parent_scope.api_url + '/' + resource.resource_path
 
