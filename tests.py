@@ -5,7 +5,7 @@ operator = evrythng.Operator(sys.argv[1])
 
 def run_all():
     test_operator_scope()
-    # test_device_scope()
+    test_device_scope()
 
     test_projects()
     test_thngs()
@@ -30,6 +30,7 @@ def test_device_scope():
     device = evrythng.Device(thng['id'], thng_auth['thngApiKey'])
     expect(device.api_key, 'Device to have api_key')
     expect(device.api_url, 'Device to have api_url')
+    expect(len(device.api_key) == 80, 'Device API Key to have length 80')
 
 def test_projects():
     payload = {'name': 'Test Project'}
