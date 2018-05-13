@@ -14,7 +14,7 @@ class Scope():
 
 class Operator(Scope):
     def __init__(self, api_key):
-        Scope.__init__(self, api_key)
+        super(Operator, self).__init__(api_key)
 
     def project(self, id=None):
         return CRUDResource(self, 'projects', id)
@@ -58,7 +58,7 @@ class Operator(Scope):
 
 class Device(Scope):
     def __init__(self, id, api_key):
-        Scope.__init__(self, api_key)
+        super(Device, self).__init__(api_key)
         self.parent_scope = self
         self.resource_path = 'thngs'
         self.id = id
@@ -92,12 +92,20 @@ class CRUDResource():
 
 class ThngResource(CRUDResource):
     def __init__(self, parent_scope, id=None):
-        CRUDResource.__init__(self, parent_scope, 'thngs', id)
+        super(ThngResource, self).__init__(parent_scope, 'thngs', id)
 
-    def auth(self):
+    def device(self):
         if not self.id:
             raise Exception('ID must be supplied')
+        return ThngAuthResource(self)
+
+
+class ThngAuthResource(ThngResource):
+    def __init__(self, parent_scope):
+        super(ThngAuthResource, self).__init__(parent_scope, parent_scope.id)
         self.resource_path = 'auth/evrythng/thngs'
+
+    def read(self):
         return _evrythng_request(self, 'post', { 'thngId': self.id })
 
 

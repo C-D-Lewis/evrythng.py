@@ -5,7 +5,7 @@ operator = evrythng.Operator(sys.argv[1])
 
 def run_all():
     test_operator_scope()
-    test_device_scope()
+    # test_device_scope()
 
     test_projects()
     test_thngs()
@@ -26,7 +26,7 @@ def test_device_scope():
     else:
         thng = thngs[0]
 
-    thng_auth = operator.thng(thng['id']).auth()
+    thng_auth = operator.thng(thng['id']).device().read()
     device = evrythng.Device(thng['id'], thng_auth['thngApiKey'])
     expect(device.api_key, 'Device to have api_key')
     expect(device.api_url, 'Device to have api_url')
@@ -45,12 +45,12 @@ def test_projects():
     result = operator.project(project_id).read()
     expect(isinstance(result, dict), 'project(id).read() to be a dict')
     expect(isinstance(result['id'], str), 'project(id).read() to have \'id\'')
-    
+
     payload = {'tags': []}
     result = operator.project(project_id).update(payload)
     expect(isinstance(result, dict), 'project(id).update() to be a dict')
     expect(isinstance(result['tags'], list), 'project(id).update()[\'tags\'] to be a list')
-    
+
     result = operator.project(project_id).delete()
     expect(result.status_code == 200, 'project(id).delete() status_code to be 200')
 
@@ -67,12 +67,12 @@ def test_thngs():
     result = operator.thng(thng_id).read()
     expect(isinstance(result, dict), 'thng(id).read() to be a dict')
     expect(isinstance(result['id'], str), 'thng(id).read() to have \'id\'')
-    
+
     payload = {'tags': []}
     result = operator.thng(thng_id).update(payload)
     expect(isinstance(result, dict), 'thng(id).update() to be a dict')
     expect(isinstance(result['tags'], list), 'thng(id).update()[\'tags\'] to be a list')
-    
+
     result = operator.thng(thng_id).delete()
     expect(result.status_code == 200, 'thng(id).delete() status_code to be 200')
 
@@ -82,19 +82,19 @@ def test_products():
     product_id = result['id']
     expect(isinstance(result, dict), 'product().create() to be a dict')
     expect(isinstance(result['id'], str), 'product().create() to have \'id\'')
-    
+
     result = operator.product().read()
     expect(isinstance(result, list), 'product().read() to be a list')
 
     result = operator.product(product_id).read()
     expect(isinstance(result, dict), 'product(id).read() to be a dict')
     expect(isinstance(result['id'], str), 'product(id).read() to have \'id\'')
-    
+
     payload = {'tags': []}
     result = operator.product(product_id).update(payload)
     expect(isinstance(result, dict), 'product(id).update() to be a dict')
     expect(isinstance(result['tags'], list), 'product(id).update()[\'tags\'] to be a list')
-    
+
     result = operator.product(product_id).delete()
     expect(result.status_code == 200, 'product(id).delete() status_code to be 200')
 
@@ -111,12 +111,12 @@ def test_collections():
     result = operator.collection(collection_id).read()
     expect(isinstance(result, dict), 'collection(id).read() to be a dict')
     expect(isinstance(result['id'], str), 'collection(id).read() to have \'id\'')
-    
+
     payload = {'tags': []}
     result = operator.collection(collection_id).update(payload)
     expect(isinstance(result, dict), 'collection(id).update() to be a dict')
     expect(isinstance(result['tags'], list), 'collection(id).update()[\'tags\'] to be a list')
-    
+
     result = operator.collection(collection_id).delete()
     expect(result.status_code == 200, 'collection(id).delete() status_code to be 200')
 
@@ -133,12 +133,12 @@ def test_places():
     result = operator.place(place_id).read()
     expect(isinstance(result, dict), 'place(id).read() to be a dict')
     expect(isinstance(result['id'], str), 'place(id).read() to have \'id\'')
-    
+
     payload = {'tags': []}
     result = operator.place(place_id).update(payload)
     expect(isinstance(result, dict), 'place(id).update() to be a dict')
     expect(isinstance(result['tags'], list), 'place(id).update()[\'tags\'] to be a list')
-    
+
     result = operator.place(place_id).delete()
     expect(result.status_code == 200, 'place(id).delete() status_code to be 200')
 
@@ -154,12 +154,12 @@ def test_action_types():
 
     result = operator.action_type(action_type_name).read()
     expect(isinstance(result, list), 'action_type(name).read() to be a list')
-    
+
     payload = {'tags': []}
     result = operator.action_type(action_type_name).update(payload)
     expect(isinstance(result, dict), 'action_type(name).update() to be a dict')
     expect(isinstance(result['tags'], list), 'action_type(name).update()[\'tags\'] to be a list')
-    
+
     result = operator.action_type(action_type_name).delete()
     expect(result.status_code == 200, 'action_type(name).delete() status_code to be 200')
 
@@ -170,13 +170,13 @@ def test_application_users():
     if len(result) == 0:
         print('No users available to test')
         return
-    
+
     result = result[0]
     payload = {'tags': []}
     result = operator.application_user(result['id']).update(payload)
     expect(isinstance(result, dict), 'application_user().update() to be a dict')
     expect(isinstance(result['tags'], list), 'application_user().update()[\'tags\'] to be a list')
-    
+
     result = operator.application_user(result['id']).delete()
     expect(result.status_code == 200, 'application_user().delete() status_code to be 200')
 
